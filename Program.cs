@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Zadania_wlasne4
 {
     public abstract class Character
     {
         protected string Name;
-        protected int Lifepower;
-        protected int Power;
+        public int Lifepower;
+        public int Power;
 
         public Character(string name, int lifepower, int power)
         {
@@ -135,7 +136,7 @@ namespace Zadania_wlasne4
         {
             if (Lifepower < 5)
             {
-                return 0;
+                return 3006;
             }
             else
             {
@@ -144,6 +145,57 @@ namespace Zadania_wlasne4
             
         }
 
+        public override string ToString()
+        {
+            return "Postać:" + Name + " o żywotności: " + Lifepower + " i sile ataku: " + NewAttackPower();
+        }
+
+    }
+
+    class Team
+    {
+        private string TeamName;
+
+        public Team( string teamname)
+        {
+            TeamName = teamname;
+        }
+
+        List<Character> team = new List<Character>();
+
+        public void AddMember(Mag newmag, Warrior newwarrior)
+        {
+            if (newmag != null)
+            {
+                team.Add(newmag);
+            }
+            else
+            {
+                team.Add(newwarrior);
+            }
+            
+        }
+
+        public void ChangeMember(int number, int lifepower, int power)
+        {
+            team[number].Lifepower = lifepower;
+            team[number].Power = power;
+        }
+
+        public int TeamPower()
+        {
+            int suma = 0;
+            foreach(var n in team)
+            {
+                suma += n.Power;
+            }
+            return suma;
+        }
+
+        public override string ToString()
+        {
+            return "Drużyna: " + TeamName + " Ilość członków: " + team.Count + " o łączej sile: " + TeamPower();
+        }
     }
     class Program
     {
@@ -151,6 +203,8 @@ namespace Zadania_wlasne4
         {
             Mag a = new Mag();
             Console.WriteLine(a);
+            Warrior b = new Warrior();
+            Console.WriteLine(b);
             Console.ReadKey();
         }
     }
