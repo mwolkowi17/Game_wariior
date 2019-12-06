@@ -5,7 +5,7 @@ namespace Zadania_wlasne4
 {
     public abstract class Character
     {
-        protected string Name;
+        public string Name;
         public int Lifepower;
         public int Power;
 
@@ -163,20 +163,24 @@ namespace Zadania_wlasne4
 
         List<Character> team = new List<Character>();
 
-        public void AddMember(Mag newmag, Warrior newwarrior)
+        public void AddMember(Mag newmag, Warrior newwarrior) //tu być może możnaby się posłużyć Character
+         {
+             if (newmag != null)
+             {
+                 team.Add(newmag);
+             }
+             else
+             {
+                 team.Add(newwarrior);
+             }
+
+         }
+        public void AddMember(Character newmember) //tu być może możnaby się posłużyć Character
         {
-            if (newmag != null)
-            {
-                team.Add(newmag);
-            }
-            else
-            {
-                team.Add(newwarrior);
-            }
-            
+            team.Add(newmember);
         }
 
-        public void ChangeMember(int number, int lifepower, int power)
+            public void ChangeMember(int number, int lifepower, int power)
         {
             team[number].Lifepower = lifepower;
             team[number].Power = power;
@@ -192,6 +196,14 @@ namespace Zadania_wlasne4
             return suma;
         }
 
+        public void WriteMembers()
+        {
+            foreach( var n in team)
+            {
+                Console.WriteLine(n.Name);
+            }
+        }
+
         public override string ToString()
         {
             return "Drużyna: " + TeamName + " Ilość członków: " + team.Count + " o łączej sile: " + TeamPower();
@@ -205,6 +217,19 @@ namespace Zadania_wlasne4
             Console.WriteLine(a);
             Warrior b = new Warrior();
             Console.WriteLine(b);
+            Team druzyna = new Team("Drużyna Pierścienia");
+            druzyna.AddMember(a, null);
+            druzyna.AddMember(null, b);
+            druzyna.AddMember(a);
+            druzyna.ChangeMember(0, 3, 150);
+            
+            Console.WriteLine(druzyna);
+            druzyna.WriteMembers();
+            
+            /*foreach(var n in druzyna) ciekawe, tu się może przydać enumerator od kurpa!
+            {
+
+            }*/
             Console.ReadKey();
         }
     }
